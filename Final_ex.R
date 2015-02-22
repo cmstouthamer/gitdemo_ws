@@ -15,10 +15,19 @@ library("ggthemes", lib.loc="/Library/Frameworks/R.framework/Versions/3.1/Resour
 #Load data into a variable:
 data.in <- read.delim(file = "output/combined_gapMinder.tsv", header = TRUE, sep='\t')
 
+#subset the three countries that I want
+data.sub <- subset(data.in, country == 'Afghanistan'|country=='Brazil'|country=='China')
 
+#Here is an alternative to the method above.
+data.sub <- subset(data.in, country %in% c('Afghanistan','Brazil','China')) 
 
+#plot x axis year and y axis gdp per capita with each country in a seperate plot
 
-
+myplot <- ggplot(data = data.sub, aes(x = year, y = gdpPercap, color = country)) + 
+  geom_point(size = 3) +
+  facet_grid(country ~ .)
+summary(myplot)
+myplot
 
 
 
