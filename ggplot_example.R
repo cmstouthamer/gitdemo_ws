@@ -55,8 +55,14 @@ df <- melt(iris, id.vars = "Species") #transform a category into a variable
 ggplot(df, aes(Species, value, fill = variable)) +
   geom_bar(stat = "identity", position = "dodge") +
   scale_fill_brewer(palette = "Set1")
-#This plots the summary statistic (Average? we don't know) for each measure, binned
-#by species. 
+#This plots all of the plots for each measure over one another, binned
+#by species. Thus, what you end up with is the maximum measurement for each 
+#flower species and each measurement of that species, because stat = 'identity'
+#means no statistical transformation.
+
+#done with this part of lecture
+
+
 
 
 
