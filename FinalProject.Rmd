@@ -1,0 +1,41 @@
+---
+title: "Final Project"
+author: "Corinne_Stouthamer"
+date: "February 22, 2015"
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library("ggplot2", lib.loc="/Library/Frameworks/R.framework/Versions/3.1/Resources/library")
+library("plyr", lib.loc="/Library/Frameworks/R.framework/Versions/3.1/Resources/library")
+library("reshape2", lib.loc="/Library/Frameworks/R.framework/Versions/3.1/Resources/library")
+library("ggthemes", lib.loc="/Library/Frameworks/R.framework/Versions/3.1/Resources/library")
+
+#Load data into a variable:
+data.in <- read.delim(file = "output/combined_gapMinder.tsv", header = TRUE, sep='\t')
+
+#subset the three countries that I want
+data.sub <- subset(data.in, country == 'Afghanistan'|country=='Brazil'|country=='China')
+
+#Here is an alternative to the method above.
+data.sub <- subset(data.in, country %in% c('Afghanistan','Brazil','China')) 
+
+#plot x axis year and y axis gdp per capita with each country in a seperate plot
+myplot <- ggplot(data = data.sub, aes(x = year, y = gdpPercap, color = country)) + 
+  geom_point(size = 3) +
+  facet_grid(. ~ country)
+summary(myplot)
+
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(myplot)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
